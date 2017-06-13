@@ -13,18 +13,19 @@ import okhttp3.ResponseBody;
 /**
  *
  */
-public class HelloWorldMainTest {
+public class HelloWorldMainTest extends BaseTest {
 
 
   @Before
   public void setUp() throws Exception {
-    HelloWorldMain.main(null);
+    HelloWorldMain.start();
   }
 
   @After
   public void tearDown() throws Exception {
-    //HelloWorldMain.shutdown(); //NotYetImplemented
+    HelloWorldMain.shutdown();
   }
+
 
   @Test
   public void test001() throws Exception {
@@ -40,7 +41,6 @@ public class HelloWorldMainTest {
     Assert.assertNotNull(body);
     System.out.println("body = " + body);
     Assert.assertEquals("Hello World", body.string());
-
 
   }
 

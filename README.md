@@ -1,5 +1,18 @@
 # Minimal Vaadin App with Undertow
 
+
+## preparations
+To run the tests you need a Chrome intalled locally
+
+please download the Chrome WebDriver binary 
+from [http://chromedriver.storage.googleapis.com/index.html](http://chromedriver.storage.googleapis.com/index.html)
+
+
+
+
+
+
+
 Here I created the smallest possible version of a Vaadin project.
 To make it easy and simple I am not using any extra maven plugin.
 

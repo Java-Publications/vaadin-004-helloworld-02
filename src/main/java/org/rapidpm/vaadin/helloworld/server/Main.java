@@ -4,18 +4,13 @@ package org.rapidpm.vaadin.helloworld.server;
 import static io.undertow.Handlers.redirect;
 import static io.undertow.servlet.Servlets.servlet;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+import java.util.Optional;
 
-import com.vaadin.annotations.VaadinServletConfiguration;
-import com.vaadin.server.VaadinRequest;
-import com.vaadin.server.VaadinServlet;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
+import javax.servlet.ServletException;
+
 import io.undertow.Handlers;
 import io.undertow.Undertow;
+import io.undertow.server.HttpHandler;
 import io.undertow.server.handlers.PathHandler;
 import io.undertow.servlet.Servlets;
 import io.undertow.servlet.api.DeploymentInfo;
@@ -28,30 +23,17 @@ public class Main {
 
   public static final String CONTEXT_PATH = "/";
 
-
-  @WebServlet("/*")
-  @VaadinServletConfiguration(productionMode = false, ui = MyUI.class)
-  public static class MyProjectServlet extends VaadinServlet {}
-
-
-  public static class MyUI extends UI {
-    @Override
-    protected void init(VaadinRequest request) {
-      final VerticalLayout layout = new VerticalLayout();
-//      layout.addComponents(new Label("Hello World"), new MyNewUI());
-      final Button button = new Button("click me");
-      layout.addComponents(button);
-
-      button.addClickListener((Button.ClickListener) event -> {
-        Label label = new Label("was clicked");
-        layout.addComponents(label);
-      });
-
-      setContent(layout);
-    }
+  public static void start() {
+    main(new String[0]);
   }
 
-  public static void main(String[] args) throws ServletException {
+  public static void shutdown() {
+    undertowOptional.ifPresent(Undertow::stop);
+  }
+
+  private static Optional<Undertow> undertowOptional;
+
+  public static void main(String[] args) {
 
     // grap it here
     // http://bit.ly/undertow-servlet-deploy
@@ -64,8 +46,8 @@ public class Main {
                   .addServlets(
                       servlet(
                           MyProjectServlet.class.getSimpleName(),
-                          MyProjectServlet.class)
-                          .addMapping("/*"));
+                          MyProjectServlet.class).addMapping("/*")
+                  );
 
     DeploymentManager manager = Servlets
         .defaultContainer()
@@ -73,20 +55,24 @@ public class Main {
 
     manager.deploy();
 
-    PathHandler path = Handlers.path(redirect(CONTEXT_PATH))
-                               .addPrefixPath(CONTEXT_PATH, manager.start());
+    try {
+      HttpHandler httpHandler = manager.start();
+      PathHandler path = Handlers.path(redirect(CONTEXT_PATH))
+                                 .addPrefixPath(CONTEXT_PATH, httpHandler);
 
-    Undertow undertowServer = Undertow.builder()
-                                      .addHttpListener(8080, "0.0.0.0")
-                                      .setHandler(path)
-                                      .build();
-    undertowServer.start();
-    undertowServer.getListenerInfo().forEach(System.out::println);
+      Undertow undertowServer = Undertow.builder()
+                                        .addHttpListener(8080, "0.0.0.0")
+                                        .setHandler(path)
+                                        .build();
+      undertowServer.start();
 
+      undertowOptional = Optional.of(undertowServer);
+
+      undertowServer.getListenerInfo().forEach(System.out::println);
+
+    } catch (ServletException e) {
+      e.printStackTrace();
+      undertowOptional = Optional.empty();
+    }
   }
-
-  public static void shutdown() {
-    //shutdown the container, release all resources
-  }
-
 }
