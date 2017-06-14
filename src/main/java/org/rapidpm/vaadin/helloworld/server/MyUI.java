@@ -4,6 +4,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.shared.ui.ValueChangeMode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 
@@ -18,23 +19,6 @@ public class MyUI extends UI {
 
   @Override
   protected void init(VaadinRequest request) {
-    final HorizontalLayout layout = new HorizontalLayout();
-
-    final TextField input = new TextField();
-    input.setId(INPUT_ID);
-
-    final TextField output = new TextField();
-    output.setReadOnly(true);
-    output.setId(OUTPUT_ID);
-
-    final Button button = new Button("click me");
-    button.setId(BUTTON_ID);
-
-    button.addClickListener(
-        event -> output.setValue(input.getValue()));
-
-    layout.addComponents(input,button,output);
-
-    setContent(layout);
+    setContent(new Label("Hello World"));
   }
 }
