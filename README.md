@@ -1,17 +1,17 @@
-# Minimal Vaadin App with Undertow
 
+<center>
+<a href="https://vaadin.com">
+ <img src="https://vaadin.com/images/hero-reindeer.svg" width="200" height="200" /></a>
+</center>
+
+# Minimal Vaadin App with Undertow
+In the series Backend meets Frontend, Sven Ruppert introduces concepts and technologies related to the Vaadin UI framework. After working on setting up a Vaadin app in Wildfly Swarm in the first part, this time it's about deployment in an Undertow Servlet Container.
 
 ## preparations
 To run the tests you need a Chrome intalled locally
 
 please download the Chrome WebDriver binary 
 from [http://chromedriver.storage.googleapis.com/index.html](http://chromedriver.storage.googleapis.com/index.html)
-
-
-
-
-
-
 
 Here I created the smallest possible version of a Vaadin project.
 To make it easy and simple I am not using any extra maven plugin.
@@ -122,4 +122,19 @@ To play with this you only have to start the main - method and
 go with your browser to the address: [http://localhost:8080](http://localhost:8080)
 
 Ok, you got your first Vaadin "Hello World".
+
+## more to read and see
+* german article [http://bit.ly/jaxenter-002](http://bit.ly/jaxenter-002)
+* engl. article : not translated until now, **[ping me](https://twitter.com/SvenRuppert)** if you need it
+
+
+## Screencast (german)
+not created until now, **[ping me](https://twitter.com/SvenRuppert)** if you need it
+
+>The complete playlist of german screencasts you can find here: 
+>[http://bit.ly/vaadin-video-list-ger](http://bit.ly/vaadin-video-list-ger)
+
+## Screencast (english)
+not translated until now, **[ping me](https://twitter.com/SvenRuppert)** if you need it
+
 
