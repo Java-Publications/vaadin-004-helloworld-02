@@ -5,7 +5,11 @@
 </center>
 
 # Minimal Vaadin App with Undertow
-In the series Backend meets Frontend, Sven Ruppert introduces concepts and technologies related to the Vaadin UI framework. After working on setting up a Vaadin app in Wildfly Swarm in the first part, this time it's about deployment in an Undertow Servlet Container.
+In the series Backend meets Frontend, Sven Ruppert introduces 
+concepts and technologies related to the Vaadin UI framework. 
+After working on setting up a Vaadin app in Wildfly Swarm 
+in the first part, this time it's about deployment in 
+an Undertow Servlet Container.
 
 ## preparations
 To run the tests you need a Chrome intalled locally

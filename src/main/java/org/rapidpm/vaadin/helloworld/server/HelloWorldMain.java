@@ -1,9 +1,9 @@
 package org.rapidpm.vaadin.helloworld.server;
 
-import java.util.Optional;
-
 import io.undertow.Undertow;
 import io.undertow.util.Headers;
+
+import java.util.Optional;
 
 /**
  *
@@ -11,11 +11,11 @@ import io.undertow.util.Headers;
 public class HelloWorldMain {
 
 
-  public static void start(){
+  public static void start() {
     main(new String[0]);
   }
 
-  public static void shutdown(){
+  public static void shutdown() {
     undertowOptional.ifPresent(Undertow::stop);
   }
 
@@ -31,7 +31,8 @@ public class HelloWorldMain {
                   .put(Headers.CONTENT_TYPE, "text/plain");
           exchange.getResponseSender()
                   .send("Hello World");
-        }).build();
+        })
+        .build();
     server.start();
 
     undertowOptional = Optional.of(server);
